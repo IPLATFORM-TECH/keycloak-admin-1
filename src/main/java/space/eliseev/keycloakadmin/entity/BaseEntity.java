@@ -8,19 +8,23 @@
  * Legal use of the software provides receipt of a license from the right holder only.
  */
 
-package space.eliseev.keycloakadmin;
+package space.eliseev.keycloakadmin.entity;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
 
 /**
  * @author <a href="mailto:a.s.eliseev@yandex.ru">Aleksandr Eliseev</a>
  */
-@SpringBootApplication
-public class KeycloakAdminApplication {
+@Getter
+@Setter
+@MappedSuperclass
+public abstract class BaseEntity {
 
-    public static void main(String[] args) {
-        SpringApplication.run(KeycloakAdminApplication.class, args);
-    }
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", length = 36)
+    private String id;
 }

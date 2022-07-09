@@ -8,19 +8,17 @@
  * Legal use of the software provides receipt of a license from the right holder only.
  */
 
-package space.eliseev.keycloakadmin;
+package space.eliseev.keycloakadmin.repository;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import space.eliseev.keycloakadmin.entity.User;
 
 /**
+ * Получение информации о пользователях
+ *
  * @author <a href="mailto:a.s.eliseev@yandex.ru">Aleksandr Eliseev</a>
  */
-@SpringBootApplication
-public class KeycloakAdminApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(KeycloakAdminApplication.class, args);
-    }
-
+@Repository
+public interface UserRepository extends JpaRepository<User, String> {
 }

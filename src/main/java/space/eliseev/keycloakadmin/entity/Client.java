@@ -73,7 +73,7 @@ public class Client extends BaseEntity {
     private String description;
 
     @Column(name = "registration_token")
-    private String registration_token;
+    private String registrationToken;
 
     @Column(name = "standard_flow_enabled")
     private boolean standardFlowEnabled;

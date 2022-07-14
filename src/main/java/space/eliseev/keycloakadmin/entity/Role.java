@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Setter
 @Entity
 @Table(name = "keycloak_role")
-public class KeycloakRole extends BaseEntity {
+public class Role extends BaseEntity {
 
     @Column(name = "client_realm_constraint")
     private String clientRealmConstraint;

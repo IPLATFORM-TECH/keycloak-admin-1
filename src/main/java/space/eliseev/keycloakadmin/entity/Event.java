@@ -12,31 +12,31 @@ import javax.persistence.Table;
 @Setter
 @Entity
 @Table(name = "event_entity")
-public class Event extends BaseEntity{
+public class Event extends BaseEntity {
     @Column(name = "client_id")
-    private String client_id;
+    private String clientId;
 
     @Column(name = "details_json")
-    private String details_json;
+    private String detailsJson;
 
     @Column(name = "error")
     private String error;
 
     @Column(name = "ip_address")
-    private  String ip_address;
+    private String ipAddress;
 
     @Column(name = "realm_id")
-    private String realm_id;
+    private String realmId;
 
     @Column(name = "session_id")
-    private String session_id;
+    private String sessionId;
 
     @Column(name = "event_time")
-    private Long event_time;
+    private Long eventTime;
 
     @Column(name = "type")
     private String type;
 
     @Column(name = "user_id")
-    private String user_id;
+    private String userId;
 }

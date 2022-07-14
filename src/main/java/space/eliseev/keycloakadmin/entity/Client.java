@@ -79,11 +79,11 @@ public class Client extends BaseEntity {
     private boolean standardFlowEnabled;
 
     @Column(name = "implicit_flow_enabled")
-    private boolean implicit_flow_enabled;
+    private boolean implicitFlowEnabled;
 
     @Column(name = "direct_access_grants_enabled")
-    private boolean direct_access_grants_enabled;
+    private boolean directAccessGrantsEnabled;
 
     @Column(name = "always_display_in_console")
-    private boolean always_display_in_console;
+    private boolean alwaysDisplayInConsole;
 }

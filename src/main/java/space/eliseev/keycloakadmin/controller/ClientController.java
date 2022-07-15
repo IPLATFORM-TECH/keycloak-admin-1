@@ -19,7 +19,7 @@ import java.util.Optional;
 public class ClientController {
     private final ClientService clientService;
 
-    @GetMapping(value = "/getAll")
+    @GetMapping("/getAll")
     public ResponseEntity<List<Client>> getClients() {
         return new ResponseEntity<>(clientService.getAllClients(), HttpStatus.OK);
     }

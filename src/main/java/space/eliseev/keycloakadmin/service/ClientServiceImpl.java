@@ -25,7 +25,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Optional<Client> getByName(String name) {
+    public Optional<Client> getByName(@NonNull String name) {
         return clientRepository.findByName(name);
     }
 }

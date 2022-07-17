@@ -1,5 +1,8 @@
 package space.eliseev.keycloakadmin.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,17 +22,21 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/role", produces = "application/json; charset=UTF-8")
+@Tag(name = "Роли", description = "API ролей")
 public class RoleController {
 
     private final RoleService roleService;
 
     @GetMapping(value = "/getAll")
+    @Operation(summary = "Получение всех ролей")
     public ResponseEntity<List<Role>> getAll() {
         return new ResponseEntity<>(roleService.getAllRoles(), HttpStatus.OK);
     }
 
     @GetMapping("/getById/{id}")
-    public ResponseEntity<Role> getById(@PathVariable String id) {
+    @Operation(summary = "Получение роли по ID")
+    public ResponseEntity<Role> getById(@Parameter(description = "ID роли, которую нужно показать")
+                                        @PathVariable String id) {
 
         final Optional<Role> role = roleService.getById(id);
 
@@ -39,7 +46,9 @@ public class RoleController {
     }
 
     @GetMapping("/getByName/{name}")
-    public ResponseEntity<Role> getByName(@PathVariable String name) {
+    @Operation(summary = "Получение роли по названию")
+    public ResponseEntity<Role> getByName(@Parameter(description = "Название роли, которую нужно показать")
+                                          @PathVariable String name) {
 
         final Optional<Role> role = roleService.getByName(name);
 

@@ -10,6 +10,8 @@
 
 package space.eliseev.keycloakadmin.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,15 +30,18 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value ="/user", produces = "application/json; charset=UTF-8")
+@Tag(name = "User", description = "The User API")
 public class UserController {
 
     private final UserService userService;
 
+    @Operation(summary = "Gets all users")
     @GetMapping(value = "/getAll")
     public ResponseEntity<List<User>> getUsers() {
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
+    @Operation(summary = "Gets user by id")
     @GetMapping("/get/{id}")
     public ResponseEntity<User> getById(@PathVariable String id) {
 

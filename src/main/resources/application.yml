@@ -9,8 +9,3 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
-  liquibase:
-    enabled: true
-    url: @db-url@
-    user: @db-username@
-    password: @db-password@

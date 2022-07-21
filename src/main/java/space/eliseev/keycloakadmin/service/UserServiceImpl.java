@@ -12,12 +12,16 @@ package space.eliseev.keycloakadmin.service;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.mapstruct.Mapper;
 import org.springframework.stereotype.Service;
+import space.eliseev.keycloakadmin.dto.UserDto;
 import space.eliseev.keycloakadmin.entity.User;
+import space.eliseev.keycloakadmin.mapper.UserMapper;
 import space.eliseev.keycloakadmin.repository.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * Реализация {@link UserService}
@@ -29,14 +33,18 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final UserMapper mapper;
 
     @Override
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserDto> getAllUsers() {
+        return userRepository.findAll()
+                .stream()
+                .map(mapper::userToDto)
+                .toList();
     }
 
     @Override
-    public Optional<User> getById(@NonNull final String id) {
-        return userRepository.findById(id);
+    public Optional<UserDto> getById(@NonNull final String id) {
+        return userRepository.findById(id).map(mapper::userToDto);
     }
 }

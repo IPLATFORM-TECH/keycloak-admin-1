@@ -19,7 +19,7 @@ public class TimeUtils {
 
     public static Long toLong(@NonNull LocalDateTime localTime) {
         ZonedDateTime zdt = ZonedDateTime.of(localTime, ZoneId.systemDefault());
-        return zdt.toInstant().toEpochMilli();
+        return zdt.toInstant().toEpochMilli() / 1000;
     }
 
 }

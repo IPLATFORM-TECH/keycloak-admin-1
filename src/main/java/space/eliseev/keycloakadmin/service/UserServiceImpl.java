@@ -12,16 +12,13 @@ package space.eliseev.keycloakadmin.service;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.mapstruct.Mapper;
 import org.springframework.stereotype.Service;
 import space.eliseev.keycloakadmin.dto.UserDto;
-import space.eliseev.keycloakadmin.entity.User;
 import space.eliseev.keycloakadmin.mapper.UserMapper;
 import space.eliseev.keycloakadmin.repository.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 /**
  * Реализация {@link UserService}

@@ -12,7 +12,6 @@ package space.eliseev.keycloakadmin.service;
 
 import lombok.NonNull;
 import space.eliseev.keycloakadmin.dto.UserDto;
-import space.eliseev.keycloakadmin.entity.User;
 
 import java.util.List;
 import java.util.Optional;

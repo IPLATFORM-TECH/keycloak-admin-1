@@ -14,7 +14,6 @@ public class UserDto {
     private Boolean enabled;
     private String firstName;
     private String lastName;
-    private String realmId;
     private String username;
     private LocalDateTime createdTimestamp;
     private Integer notBefore;

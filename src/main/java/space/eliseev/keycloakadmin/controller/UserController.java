@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import space.eliseev.keycloakadmin.entity.User;
+import space.eliseev.keycloakadmin.dto.UserDto;
 import space.eliseev.keycloakadmin.service.UserService;
 
 import java.util.List;
@@ -33,14 +33,14 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping(value = "/getAll")
-    public ResponseEntity<List<User>> getUsers() {
+    public ResponseEntity<List<UserDto>> getUsers() {
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<User> getById(@PathVariable String id) {
+    public ResponseEntity<UserDto> getById(@PathVariable String id) {
 
-        final Optional<User> user = userService.getById(id);
+        final Optional<UserDto> user = userService.getById(id);
 
         return user
                 .map(value -> new ResponseEntity<>(value, HttpStatus.OK))

@@ -4,6 +4,7 @@ import lombok.NonNull;
 import org.springframework.stereotype.Service;
 import space.eliseev.keycloakadmin.entity.Event;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +16,7 @@ public interface EventService {
 
     Optional<Event> getByUsername(@NonNull String username);
 
-    List<Event> getByDate(@NonNull Long timeStart, @NonNull Long timeEnd);
+    List<Event> getByDate(@NonNull LocalDateTime timeStart, @NonNull LocalDateTime timeEnd);
 
-    List<Event> getByUsernameAndDte(@NonNull String username, @NonNull Long timeStart, @NonNull Long timeEnd);
+    List<Event> getByUsernameAndDte(@NonNull String username, @NonNull LocalDateTime timeStart, @NonNull LocalDateTime timeEnd);
 }

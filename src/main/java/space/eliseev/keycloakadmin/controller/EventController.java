@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import space.eliseev.keycloakadmin.commons.TimeUtils;
 import space.eliseev.keycloakadmin.entity.Event;
 import space.eliseev.keycloakadmin.service.EventService;
 
@@ -47,13 +46,13 @@ public class EventController {
 
     @GetMapping(value = "/getByDate/startDate={localDateTimeStart:-*}&endDate={localDateTimeEnd:-*}")
     public ResponseEntity<List<Event>> getByDate(@PathVariable LocalDateTime localDateTimeStart, @PathVariable LocalDateTime localDateTimeEnd) {
-        final List<Event> event = eventService.getByDate(TimeUtils.toLong(localDateTimeStart), TimeUtils.toLong(localDateTimeEnd));
+        final List<Event> event = eventService.getByDate(localDateTimeStart, localDateTimeEnd);
         return new ResponseEntity<>(event, HttpStatus.OK);
     }
 
     @GetMapping(value = "/getAllBy/username={username}&startDate={localDateTimeStart:_*}&endDate={localDateTimeEnd:_*}")
     public ResponseEntity<List<Event>> getByUsernameAndDate(@PathVariable String username, @PathVariable LocalDateTime localDateTimeStart, @PathVariable LocalDateTime localDateTimeEnd) {
-        final List<Event> event = eventService.getByUsernameAndDte(username, TimeUtils.toLong(localDateTimeStart), TimeUtils.toLong(localDateTimeEnd));
+        final List<Event> event = eventService.getByUsernameAndDte(username, localDateTimeStart, localDateTimeEnd);
         return new ResponseEntity<>(event, HttpStatus.OK);
     }
 

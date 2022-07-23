@@ -11,6 +11,7 @@
 package space.eliseev.keycloakadmin.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -43,7 +44,7 @@ public class UserController {
 
     @Operation(summary = "Gets user by id")
     @GetMapping("/get/{id}")
-    public ResponseEntity<User> getById(@PathVariable String id) {
+    public ResponseEntity<User> getById(@PathVariable @Parameter(description = "user id") String id) {
 
         final Optional<User> user = userService.getById(id);
 

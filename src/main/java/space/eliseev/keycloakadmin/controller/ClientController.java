@@ -1,6 +1,7 @@
 package space.eliseev.keycloakadmin.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,7 +31,7 @@ public class ClientController {
 
     @Operation(summary = "Gets client by id")
     @GetMapping("/getById/{id}")
-    public ResponseEntity<Client> getById(@PathVariable String id) {
+    public ResponseEntity<Client> getById(@PathVariable @Parameter(description = "client id") String id) {
 
         final Optional<Client> client = clientService.getById(id);
 
@@ -41,7 +42,7 @@ public class ClientController {
 
     @Operation(summary = "Gets client by name")
     @GetMapping("/getByName/{name}")
-    public ResponseEntity<Client> getByName(@PathVariable String name) {
+    public ResponseEntity<Client> getByName(@PathVariable @Parameter(description = "client name") String name) {
 
         final Optional<Client> client = clientService.getByName(name);
 

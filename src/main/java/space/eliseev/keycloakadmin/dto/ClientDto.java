@@ -6,30 +6,30 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ClientDto {
-    private boolean enabled;
-    private boolean fullScopeAllowed;
+    private Boolean enabled;
+    private Boolean fullScopeAllowed;
     private String clientId;
-    private int notBefore;
-    private boolean publicClient;
+    private Integer notBefore;
+    private Boolean publicClient;
     private String secret;
     private String baseUrl;
-    private boolean bearerOnly;
+    private Boolean bearerOnly;
     private String managementUrl;
-    private boolean surrogateAuthRequired;
+    private Boolean surrogateAuthRequired;
     private String protocol;
-    private int nodeReregTimeout;
-    private boolean frontchannelLogout;
-    private boolean consentRequired;
+    private Integer nodeReregTimeout;
+    private Boolean frontchannelLogout;
+    private Boolean consentRequired;
     private String name;
-    private boolean serviceAccountsEnabled;
+    private Boolean serviceAccountsEnabled;
     private String clientAuthenticatorType;
     private String rootUrl;
     private String description;
     private String registrationToken;
-    private boolean standardFlowEnabled;
-    private boolean implicitFlowEnabled;
-    private boolean directAccessGrantsEnabled;
-    private boolean alwaysDisplayInConsole;
+    private Boolean standardFlowEnabled;
+    private Boolean implicitFlowEnabled;
+    private Boolean directAccessGrantsEnabled;
+    private Boolean alwaysDisplayInConsole;
 }
 
 

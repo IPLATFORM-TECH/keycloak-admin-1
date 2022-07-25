@@ -1,7 +1,9 @@
-package space.eliseev.keycloakadmin.commons;
+package space.eliseev.keycloakadmin.test;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import space.eliseev.keycloakadmin.commons.TimeUtils;
 
 import java.time.LocalDateTime;
 
@@ -26,7 +28,7 @@ class TimeUtilsTest {
     @Test
     void testToLocalDateTime() {
 
-        assertEquals(TimeUtils.toLocalDateTime(time), localDateTime);
+        Assertions.assertEquals(TimeUtils.toLocalDateTime(time), localDateTime);
         assertNotEquals(TimeUtils.toLocalDateTime(time), localDateTime2);
         assertEquals(TimeUtils.toLocalDateTime(time2), localDateTime2);
         assertNotEquals(TimeUtils.toLocalDateTime(time2), localDateTime);

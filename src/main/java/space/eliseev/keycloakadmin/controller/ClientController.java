@@ -1,5 +1,8 @@
 package space.eliseev.keycloakadmin.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,16 +19,19 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value ="/client", produces = "application/json; charset=UTF-8")
+@Tag(name = "Client", description = "The Client API")
 public class ClientController {
     private final ClientService clientService;
 
+    @Operation(summary = "Gets all clients")
     @GetMapping("/getAll")
     public ResponseEntity<List<Client>> getClients() {
         return new ResponseEntity<>(clientService.getAllClients(), HttpStatus.OK);
     }
 
+    @Operation(summary = "Gets client by id")
     @GetMapping("/getById/{id}")
-    public ResponseEntity<Client> getById(@PathVariable String id) {
+    public ResponseEntity<Client> getById(@PathVariable @Parameter(description = "client id") String id) {
 
         final Optional<Client> client = clientService.getById(id);
 
@@ -34,8 +40,9 @@ public class ClientController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @Operation(summary = "Gets client by name")
     @GetMapping("/getByName/{name}")
-    public ResponseEntity<Client> getByName(@PathVariable String name) {
+    public ResponseEntity<Client> getByName(@PathVariable @Parameter(description = "client name") String name) {
 
         final Optional<Client> client = clientService.getByName(name);
 

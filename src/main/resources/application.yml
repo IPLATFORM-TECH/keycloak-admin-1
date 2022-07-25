@@ -3,11 +3,9 @@ spring:
     name: keycloak-admin
   datasource:
     driverClassName: org.postgresql.Driver
-    username: postgres
-    password: howerdown1995
-    url: jdbc:postgresql://localhost:5432/keycloak
+    username: @db-username@
+    password: @db-password@
+    url: @db-url@
   jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        ddl-auto: validate
+    hibernate:
+      ddl-auto: validate

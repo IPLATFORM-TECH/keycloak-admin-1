@@ -113,18 +113,18 @@
         </plugins>
     </build>
 
-<!--    <profiles>-->
-<!--        <profile>-->
-<!--            <id>dev</id>-->
-<!--            <properties>-->
-<!--                <db-url>jdbc:postgresql://localhost:5432/keycloak</db-url>-->
-<!--                <db-username>postgres</db-username>-->
-<!--                <db-password>postgres</db-password>-->
-<!--            </properties>-->
-<!--            <activation>-->
-<!--                <activeByDefault>true</activeByDefault>-->
-<!--            </activation>-->
-<!--        </profile>-->
-<!--    </profiles>-->
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <db-url>jdbc:postgresql://localhost:5432/keycloak</db-url>
+                <db-username>postgres</db-username>
+                <db-password>postgres</db-password>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
 
 </project>

@@ -3,9 +3,7 @@ package space.eliseev.keycloakadmin.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 @Getter
@@ -37,6 +35,11 @@ public class Event extends BaseEntity {
     @Column(name = "type")
     private String type;
 
-    @Column(name = "user_id")
+    @Column(name = "user_id", insertable = false, updatable = false)
     private String userId;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
+    private User user;
+
 }

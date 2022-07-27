@@ -32,6 +32,7 @@ public class ClientController {
 
     @Operation(summary = "Gets client by id")
     @GetMapping("/getById/{id}")
+
     public ResponseEntity<ClientDto> getById(@PathVariable @Parameter(description = "client id") String id) {
 
         final Optional<ClientDto> client = clientService.getById(id);
@@ -43,6 +44,7 @@ public class ClientController {
 
     @Operation(summary = "Gets client by name")
     @GetMapping("/getByName/{name}")
+
     public ResponseEntity<ClientDto> getByName(@PathVariable @Parameter(description = "client name") String name) {
 
         final Optional<ClientDto> client = clientService.getByName(name);

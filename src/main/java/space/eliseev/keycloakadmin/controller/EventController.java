@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import space.eliseev.keycloakadmin.entity.Event;
+import space.eliseev.keycloakadmin.dto.EventDto;
 import space.eliseev.keycloakadmin.service.EventService;
 
 import java.time.LocalDateTime;
@@ -22,13 +22,13 @@ public class EventController {
     private final EventService eventService;
 
     @GetMapping(value = "/getAll")
-    public ResponseEntity<List<Event>> getEvents() {
+    public ResponseEntity<List<EventDto>> getEvents() {
         return new ResponseEntity<>(eventService.getAllEvents(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/getById/id={id}")
-    public ResponseEntity<Event> getById(@PathVariable String id) {
-        final Optional<Event> event = eventService.getById(id);
+    public ResponseEntity<EventDto> getById(@PathVariable String id) {
+        final Optional<EventDto> event = eventService.getById(id);
 
         return event
                 .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
@@ -36,8 +36,8 @@ public class EventController {
     }
 
     @GetMapping(value = "/getByUsername/username={username}")
-    public ResponseEntity<Event> getByUsername(@PathVariable String username) {
-        final Optional<Event> event = eventService.getByUsername(username);
+    public ResponseEntity<EventDto> getByUsername(@PathVariable String username) {
+        final Optional<EventDto> event = eventService.getByUsername(username);
 
         return event
                 .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
@@ -45,14 +45,14 @@ public class EventController {
     }
 
     @GetMapping(value = "/getByDate/startDate={localDateTimeStart:-*}&endDate={localDateTimeEnd:-*}")
-    public ResponseEntity<List<Event>> getByDate(@PathVariable LocalDateTime localDateTimeStart, @PathVariable LocalDateTime localDateTimeEnd) {
-        final List<Event> event = eventService.getByDate(localDateTimeStart, localDateTimeEnd);
+    public ResponseEntity<List<EventDto>> getByDate(@PathVariable LocalDateTime localDateTimeStart, @PathVariable LocalDateTime localDateTimeEnd) {
+        final List<EventDto> event = eventService.getByDate(localDateTimeStart, localDateTimeEnd);
         return new ResponseEntity<>(event, HttpStatus.OK);
     }
 
     @GetMapping(value = "/getAllBy/username={username}&startDate={localDateTimeStart:_*}&endDate={localDateTimeEnd:_*}")
-    public ResponseEntity<List<Event>> getByUsernameAndDate(@PathVariable String username, @PathVariable LocalDateTime localDateTimeStart, @PathVariable LocalDateTime localDateTimeEnd) {
-        final List<Event> event = eventService.getByUsernameAndDte(username, localDateTimeStart, localDateTimeEnd);
+    public ResponseEntity<List<EventDto>> getByUsernameAndDate(@PathVariable String username, @PathVariable LocalDateTime localDateTimeStart, @PathVariable LocalDateTime localDateTimeEnd) {
+        final List<EventDto> event = eventService.getByUsernameAndDte(username, localDateTimeStart, localDateTimeEnd);
         return new ResponseEntity<>(event, HttpStatus.OK);
     }
 

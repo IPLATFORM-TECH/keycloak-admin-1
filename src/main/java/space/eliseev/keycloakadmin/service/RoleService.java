@@ -1,7 +1,7 @@
 package space.eliseev.keycloakadmin.service;
 
 import lombok.NonNull;
-import space.eliseev.keycloakadmin.entity.Role;
+import space.eliseev.keycloakadmin.dto.RoleDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +16,7 @@ public interface RoleService {
      *
      * @return список всех ролей
      */
-    List<Role> getAllRoles();
+    List<RoleDto> getAllRoles();
 
     /**
      * Получить роль по идентификатору
@@ -24,7 +24,7 @@ public interface RoleService {
      * @param id Идентификатор роли
      * @return роль
      */
-    Optional<Role> getById(@NonNull String id);
+    Optional<RoleDto> getById(@NonNull String id);
 
     /**
      * Получить роль по имени
@@ -32,5 +32,5 @@ public interface RoleService {
      * @param name Имя роли
      * @return роль
      */
-    Optional<Role> getByName(@NonNull String name);
+    Optional<RoleDto> getByName(@NonNull String name);
 }

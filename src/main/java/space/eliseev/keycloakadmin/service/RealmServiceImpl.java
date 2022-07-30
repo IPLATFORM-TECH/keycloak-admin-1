@@ -2,7 +2,9 @@ package space.eliseev.keycloakadmin.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import space.eliseev.keycloakadmin.dto.RealmDto;
 import space.eliseev.keycloakadmin.entity.Realm;
+import space.eliseev.keycloakadmin.mapper.RealmMapper;
 import space.eliseev.keycloakadmin.repository.RealmRepository;
 
 import javax.validation.constraints.NotNull;
@@ -18,19 +20,25 @@ import java.util.Optional;
 public class RealmServiceImpl implements RealmService {
 
     private final RealmRepository realmRepository;
+    private final RealmMapper mapper;
 
     @Override
-    public List<Realm> getAllRealms() {
-        return realmRepository.findAll();
+    public List<RealmDto> getAllRealms() {
+        return realmRepository.findAll()
+                .stream()
+                .map(mapper::modelToDto)
+                .toList();
     }
 
     @Override
-    public Optional<Realm> getById(@NotNull String id) {
-        return realmRepository.findById(id);
+    public Optional<RealmDto> getById(@NotNull String id) {
+        return realmRepository.findById(id)
+                .map(mapper::modelToDto);
     }
 
     @Override
-    public Optional<Realm> getByName(@NotNull String name) {
-        return realmRepository.findByName(name);
+    public Optional<RealmDto> getByName(@NotNull String name) {
+        return realmRepository.findByName(name)
+                .map(mapper::modelToDto);
     }
 }

@@ -33,9 +33,9 @@ public class UserFormBuilderXlsx implements UserFormBuilder {
             XSSFSheet sheet = createSheet(workbook);
 
             XSSFCellStyle allBorderedStyle = getAllBorderedStyle(workbook);
-            XSSFCellStyle thikBorderStyle = getBottomThickBorderStyle(workbook);
+            XSSFCellStyle thickBorderStyle = getBottomThickBorderStyle(workbook);
 
-            createHeader(sheet, thikBorderStyle);
+            createHeader(sheet, thickBorderStyle);
             createCells(users, sheet, allBorderedStyle, workbook);
 
             workbook.write(baos);

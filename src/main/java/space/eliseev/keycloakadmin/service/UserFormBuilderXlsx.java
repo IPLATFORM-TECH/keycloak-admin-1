@@ -7,10 +7,11 @@ import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFCreationHelper;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
-import space.eliseev.keycloakadmin.entity.User;
+import space.eliseev.keycloakadmin.dto.UserDto;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -22,7 +23,7 @@ import java.util.List;
 public class UserFormBuilderXlsx implements UserFormBuilder {
 
     @Override
-    public byte[] download(@NonNull List<User> users) {
+    public byte[] download(@NonNull List<UserDto> users) {
 
         byte[] arr = new byte[0];
 
@@ -31,17 +32,17 @@ public class UserFormBuilderXlsx implements UserFormBuilder {
 
             XSSFSheet sheet = createSheet(workbook);
 
-            XSSFCellStyle allBorderedStyle = createAllBorderedStyle(workbook);
-            XSSFCellStyle thikBorderStyle = createBottomThikBorderStyle(workbook);
+            XSSFCellStyle allBorderedStyle = getAllBorderedStyle(workbook);
+            XSSFCellStyle thikBorderStyle = getBottomThickBorderStyle(workbook);
 
             createHeader(sheet, thikBorderStyle);
-            createCells(users, sheet, allBorderedStyle);
+            createCells(users, sheet, allBorderedStyle, workbook);
 
             workbook.write(baos);
             arr = baos.toByteArray();
 
         } catch (IOException e) {
-            log.error("Failure to upload xlsx file");
+            log.error("Failure to download xlsx file");
         }
 
         return arr;
@@ -65,7 +66,7 @@ public class UserFormBuilderXlsx implements UserFormBuilder {
     }
 
 
-    private XSSFCellStyle createBottomThikBorderStyle(XSSFWorkbook workbook) {
+    private XSSFCellStyle getBottomThickBorderStyle(XSSFWorkbook workbook) {
         XSSFCellStyle style = workbook.createCellStyle();
         style.setBorderTop(BorderStyle.THIN);
         style.setBorderRight(BorderStyle.THIN);
@@ -75,7 +76,7 @@ public class UserFormBuilderXlsx implements UserFormBuilder {
     }
 
 
-    private XSSFCellStyle createAllBorderedStyle(XSSFWorkbook workbook) {
+    private XSSFCellStyle getAllBorderedStyle(XSSFWorkbook workbook) {
         XSSFCellStyle style = workbook.createCellStyle();
         style.setBorderTop(BorderStyle.THIN);
         style.setBorderRight(BorderStyle.THIN);
@@ -90,57 +91,49 @@ public class UserFormBuilderXlsx implements UserFormBuilder {
         Row row = sheet.createRow(0);
 
         Cell cell = row.createCell(0);
-        cell.setCellValue("email");
+        cell.setCellValue("Email");
         cell.setCellStyle(style);
 
         Cell cell1 = row.createCell(1);
-        cell1.setCellValue("email_constraint");
+        cell1.setCellValue("Email constraint");
         cell1.setCellStyle(style);
 
         Cell cell2 = row.createCell(2);
-        cell2.setCellValue("enabled");
+        cell2.setCellValue("Email verified");
         cell2.setCellStyle(style);
 
         Cell cell3 = row.createCell(3);
-        cell3.setCellValue("federation_link");
+        cell3.setCellValue("Enabled");
         cell3.setCellStyle(style);
 
         Cell cell4 = row.createCell(4);
-        cell4.setCellValue("first_name");
+        cell4.setCellValue("Firstname");
         cell4.setCellStyle(style);
 
         Cell cell5 = row.createCell(5);
-        cell5.setCellValue("last_name");
+        cell5.setCellValue("Lastname");
         cell5.setCellStyle(style);
 
         Cell cell6 = row.createCell(6);
-        cell6.setCellValue("realm_id");
+        cell6.setCellValue("Username");
         cell6.setCellStyle(style);
 
         Cell cell7 = row.createCell(7);
-        cell7.setCellValue("username");
+        cell7.setCellValue("Created timestamp");
         cell7.setCellStyle(style);
 
         Cell cell8 = row.createCell(8);
-        cell8.setCellValue("created_timestamp");
+        cell8.setCellValue("Not before");
         cell8.setCellStyle(style);
-
-        Cell cell9 = row.createCell(9);
-        cell9.setCellValue("service_account_client_link");
-        cell9.setCellStyle(style);
-
-        Cell cell10 = row.createCell(10);
-        cell10.setCellValue("not_before");
-        cell10.setCellStyle(style);
     }
 
 
-    private void createCells(List<User> users, XSSFSheet sheet, XSSFCellStyle style) {
+    private void createCells(List<UserDto> users, XSSFSheet sheet, XSSFCellStyle style, XSSFWorkbook workbook) {
 
         Row row;
         int rownum = 0;
 
-        for (User user : users) {
+        for (UserDto user : users) {
             rownum++;
             row = sheet.createRow(rownum);
 
@@ -153,11 +146,11 @@ public class UserFormBuilderXlsx implements UserFormBuilder {
             cell1.setCellStyle(style);
 
             Cell cell2 = row.createCell(2);
-            cell2.setCellValue(user.getEnabled());
+            cell2.setCellValue(user.getEmailVerified());
             cell2.setCellStyle(style);
 
             Cell cell3 = row.createCell(3);
-            cell3.setCellValue(user.getFederationLink());
+            cell3.setCellValue(user.getEnabled());
             cell3.setCellStyle(style);
 
             Cell cell4 = row.createCell(4);
@@ -169,24 +162,28 @@ public class UserFormBuilderXlsx implements UserFormBuilder {
             cell5.setCellStyle(style);
 
             Cell cell6 = row.createCell(6);
-            cell6.setCellValue(user.getRealmId());
+            cell6.setCellValue(user.getUsername());
             cell6.setCellStyle(style);
 
             Cell cell7 = row.createCell(7);
-            cell7.setCellValue(user.getUsername());
-            cell7.setCellStyle(style);
+            cell7.setCellValue(user.getCreatedTimestamp());
+            XSSFCellStyle dateStyle = getDateStyle(workbook);
+            cell7.setCellStyle(dateStyle);
 
             Cell cell8 = row.createCell(8);
-            cell8.setCellValue(user.getCreatedTimestamp());
+            cell8.setCellValue(user.getNotBefore());
             cell8.setCellStyle(style);
-
-            Cell cell9 = row.createCell(9);
-            cell9.setCellValue(user.getServiceAccountClientLink());
-            cell9.setCellStyle(style);
-
-            Cell cell10 = row.createCell(10);
-            cell10.setCellValue(user.getNotBefore());
-            cell10.setCellStyle(style);
         }
+    }
+
+    private XSSFCellStyle getDateStyle(XSSFWorkbook workbook) {
+        XSSFCellStyle dateStyle = workbook.createCellStyle();
+        XSSFCreationHelper createHelper = workbook.getCreationHelper();
+        dateStyle.setDataFormat(createHelper.createDataFormat().getFormat("dd.mm.yyyy h.mm"));
+        dateStyle.setBorderTop(BorderStyle.THIN);
+        dateStyle.setBorderRight(BorderStyle.THIN);
+        dateStyle.setBorderBottom(BorderStyle.THIN);
+        dateStyle.setBorderLeft(BorderStyle.THIN);
+        return dateStyle;
     }
 }

@@ -4,7 +4,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import space.eliseev.keycloakadmin.commons.TypeFile;
-import space.eliseev.keycloakadmin.entity.User;
+import space.eliseev.keycloakadmin.dto.UserDto;
 import space.eliseev.keycloakadmin.service.UserFormBuilderCsv;
 import space.eliseev.keycloakadmin.service.UserFormBuilderXlsx;
 
@@ -17,7 +17,7 @@ public class UserFormBuilderFactory {
     public final UserFormBuilderXlsx formBuilderXlsx;
     public final UserFormBuilderCsv formBuilderCsv;
 
-    public byte[] download(@NonNull List<User> users, @NonNull TypeFile fileType) {
+    public byte[] download(@NonNull List<UserDto> users, @NonNull TypeFile fileType) {
         return switch (fileType) {
             case XLSX -> formBuilderXlsx.download(users);
             case CSV -> formBuilderCsv.download(users);

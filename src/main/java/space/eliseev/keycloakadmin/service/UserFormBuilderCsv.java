@@ -1,6 +1,7 @@
 package space.eliseev.keycloakadmin.service;
 
 import com.opencsv.CSVWriter;
+import com.opencsv.ICSVWriter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +24,12 @@ public class UserFormBuilderCsv implements UserFormBuilder {
         byte[] arr = new byte[0];
 
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
-             CSVWriter csvWriter = new CSVWriter(new OutputStreamWriter(baos))) {
+             CSVWriter csvWriter = new CSVWriter(
+                     new OutputStreamWriter(baos),
+                     ';',
+                     ICSVWriter.NO_QUOTE_CHARACTER,
+                     ICSVWriter.DEFAULT_ESCAPE_CHARACTER,
+                     ICSVWriter.DEFAULT_LINE_END)) {
 
             String[] header = {
                     "Email",

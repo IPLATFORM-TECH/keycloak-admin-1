@@ -3,12 +3,7 @@ package space.eliseev.keycloakadmin.service;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.ss.usermodel.BorderStyle;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFCreationHelper;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 import space.eliseev.keycloakadmin.dto.UserDto;
@@ -27,13 +22,13 @@ public class UserFormBuilderXlsx implements UserFormBuilder {
 
         byte[] arr = new byte[0];
 
-        try (XSSFWorkbook workbook = new XSSFWorkbook();
+        try (Workbook workbook = new XSSFWorkbook();
              ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
 
-            XSSFSheet sheet = createSheet(workbook);
+            Sheet sheet = createSheet(workbook);
 
-            XSSFCellStyle allBorderedStyle = getAllBorderedStyle(workbook);
-            XSSFCellStyle thickBorderStyle = getBottomThickBorderStyle(workbook);
+            CellStyle allBorderedStyle = getAllBorderedStyle(workbook);
+            CellStyle thickBorderStyle = getBottomThickBorderStyle(workbook);
 
             createHeader(sheet, thickBorderStyle);
             createCells(users, sheet, allBorderedStyle, workbook);
@@ -49,8 +44,8 @@ public class UserFormBuilderXlsx implements UserFormBuilder {
     }
 
 
-    private XSSFSheet createSheet(XSSFWorkbook workbook) {
-        XSSFSheet sheet = workbook.createSheet("Users");
+    private Sheet createSheet(Workbook workbook) {
+        Sheet sheet = workbook.createSheet("Users");
         sheet.setColumnWidth(0, 6000);
         sheet.setColumnWidth(1, 6000);
         sheet.setColumnWidth(2, 6000);
@@ -66,8 +61,8 @@ public class UserFormBuilderXlsx implements UserFormBuilder {
     }
 
 
-    private XSSFCellStyle getBottomThickBorderStyle(XSSFWorkbook workbook) {
-        XSSFCellStyle style = workbook.createCellStyle();
+    private CellStyle getBottomThickBorderStyle(Workbook workbook) {
+        CellStyle style = workbook.createCellStyle();
         style.setBorderTop(BorderStyle.THIN);
         style.setBorderRight(BorderStyle.THIN);
         style.setBorderBottom(BorderStyle.THICK);
@@ -76,8 +71,8 @@ public class UserFormBuilderXlsx implements UserFormBuilder {
     }
 
 
-    private XSSFCellStyle getAllBorderedStyle(XSSFWorkbook workbook) {
-        XSSFCellStyle style = workbook.createCellStyle();
+    private CellStyle getAllBorderedStyle(Workbook workbook) {
+        CellStyle style = workbook.createCellStyle();
         style.setBorderTop(BorderStyle.THIN);
         style.setBorderRight(BorderStyle.THIN);
         style.setBorderBottom(BorderStyle.THIN);
@@ -86,7 +81,7 @@ public class UserFormBuilderXlsx implements UserFormBuilder {
     }
 
 
-    private void createHeader(XSSFSheet sheet, XSSFCellStyle style) {
+    private void createHeader(Sheet sheet, CellStyle style) {
 
         Row row = sheet.createRow(0);
 
@@ -128,7 +123,7 @@ public class UserFormBuilderXlsx implements UserFormBuilder {
     }
 
 
-    private void createCells(List<UserDto> users, XSSFSheet sheet, XSSFCellStyle style, XSSFWorkbook workbook) {
+    private void createCells(List<UserDto> users, Sheet sheet, CellStyle style, Workbook workbook) {
 
         Row row;
         int rownum = 0;
@@ -146,11 +141,11 @@ public class UserFormBuilderXlsx implements UserFormBuilder {
             cell1.setCellStyle(style);
 
             Cell cell2 = row.createCell(2);
-            cell2.setCellValue(user.getEmailVerified());
+            cell2.setCellValue(String.valueOf(user.getEmailVerified()));
             cell2.setCellStyle(style);
 
             Cell cell3 = row.createCell(3);
-            cell3.setCellValue(user.getEnabled());
+            cell3.setCellValue(String.valueOf(user.getEnabled()));
             cell3.setCellStyle(style);
 
             Cell cell4 = row.createCell(4);
@@ -167,7 +162,7 @@ public class UserFormBuilderXlsx implements UserFormBuilder {
 
             Cell cell7 = row.createCell(7);
             cell7.setCellValue(user.getCreatedTimestamp());
-            XSSFCellStyle dateStyle = getDateStyle(workbook);
+            CellStyle dateStyle = getDateStyle(workbook);
             cell7.setCellStyle(dateStyle);
 
             Cell cell8 = row.createCell(8);
@@ -176,10 +171,10 @@ public class UserFormBuilderXlsx implements UserFormBuilder {
         }
     }
 
-    private XSSFCellStyle getDateStyle(XSSFWorkbook workbook) {
-        XSSFCellStyle dateStyle = workbook.createCellStyle();
-        XSSFCreationHelper createHelper = workbook.getCreationHelper();
-        dateStyle.setDataFormat(createHelper.createDataFormat().getFormat("dd.mm.yyyy h.mm"));
+    private CellStyle getDateStyle(Workbook workbook) {
+        CellStyle dateStyle = workbook.createCellStyle();
+        CreationHelper createHelper = workbook.getCreationHelper();
+        dateStyle.setDataFormat(createHelper.createDataFormat().getFormat("dd.mm.yyyy h:mm"));
         dateStyle.setBorderTop(BorderStyle.THIN);
         dateStyle.setBorderRight(BorderStyle.THIN);
         dateStyle.setBorderBottom(BorderStyle.THIN);

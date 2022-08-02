@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import space.eliseev.keycloakadmin.entity.Role;
+import space.eliseev.keycloakadmin.dto.RoleDto;
 import space.eliseev.keycloakadmin.service.RoleService;
 
 import java.util.List;
@@ -29,16 +29,16 @@ public class RoleController {
 
     @GetMapping(value = "/getAll")
     @Operation(summary = "Получение всех ролей")
-    public ResponseEntity<List<Role>> getAll() {
+    public ResponseEntity<List<RoleDto>> getAll() {
         return new ResponseEntity<>(roleService.getAllRoles(), HttpStatus.OK);
     }
 
     @GetMapping("/getById/{id}")
     @Operation(summary = "Получение роли по ID")
-    public ResponseEntity<Role> getById(@Parameter(description = "ID роли, которую нужно показать")
-                                        @PathVariable String id) {
+    public ResponseEntity<RoleDto> getById(@Parameter(description = "ID роли, которую нужно показать")
+                                           @PathVariable String id) {
 
-        final Optional<Role> role = roleService.getById(id);
+        final Optional<RoleDto> role = roleService.getById(id);
 
         return role
                 .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
@@ -47,10 +47,10 @@ public class RoleController {
 
     @GetMapping("/getByName/{name}")
     @Operation(summary = "Получение роли по названию")
-    public ResponseEntity<Role> getByName(@Parameter(description = "Название роли, которую нужно показать")
-                                          @PathVariable String name) {
+    public ResponseEntity<RoleDto> getByName(@Parameter(description = "Название роли, которую нужно показать")
+                                             @PathVariable String name) {
 
-        final Optional<Role> role = roleService.getByName(name);
+        final Optional<RoleDto> role = roleService.getByName(name);
 
         return role
                 .map(value -> new ResponseEntity<>(value, HttpStatus.OK))

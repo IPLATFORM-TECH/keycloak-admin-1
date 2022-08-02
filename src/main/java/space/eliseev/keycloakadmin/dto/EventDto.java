@@ -3,6 +3,8 @@ package space.eliseev.keycloakadmin.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 public class EventDto {
@@ -18,7 +20,7 @@ public class EventDto {
 
     private String sessionId;
 
-    private Long eventTime;
+    private LocalDateTime eventTime;
 
     private String type;
 

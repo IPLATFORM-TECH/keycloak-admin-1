@@ -24,9 +24,9 @@ public class FormBuilderController {
 
     private final FormBuilderService formBuilderService;
 
-    @GetMapping("/downloadAllClient")
-    public ResponseEntity<List<Client>> downloadClient() {
-        return new ResponseEntity<>(formBuilderService.downloadAllClients(), HttpStatus.OK);
+    @GetMapping("/downloadAllClient/{typeFile}")
+    public ResponseEntity<byte[]> downloadClient(@PathVariable TypeFile typeFile) {
+        return new ResponseEntity<>(formBuilderService.downloadAllClients(typeFile), HttpStatus.OK);
     }
 
     @GetMapping("/downloadAllRealm")

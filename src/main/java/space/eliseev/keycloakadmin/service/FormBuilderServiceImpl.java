@@ -3,7 +3,7 @@ package space.eliseev.keycloakadmin.service;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import space.eliseev.keycloakadmin.commons.FileType;
+import space.eliseev.keycloakadmin.commons.TypeFile;
 import space.eliseev.keycloakadmin.entity.Client;
 import space.eliseev.keycloakadmin.entity.Realm;
 import space.eliseev.keycloakadmin.service.factory.RoleFormBuilderFactory;
@@ -26,8 +26,8 @@ public class FormBuilderServiceImpl implements FormBuilderService {
     }
 
     @Override
-    public byte[] downloadAllRole(@NonNull FileType fileType) {
-        return roleFormBuilderFactory.download(roleService.getAllRoles(), fileType);
+    public byte[] downloadAllRole(@NonNull TypeFile typeFile) {
+        return roleFormBuilderFactory.download(roleService.getAllRoles(), typeFile);
     }
 
 }

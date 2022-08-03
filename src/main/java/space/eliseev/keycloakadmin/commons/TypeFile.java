@@ -1,6 +1,6 @@
 package space.eliseev.keycloakadmin.commons;
 
-public enum FileType {
+public enum TypeFile {
     XLSX,
     CSV
 }

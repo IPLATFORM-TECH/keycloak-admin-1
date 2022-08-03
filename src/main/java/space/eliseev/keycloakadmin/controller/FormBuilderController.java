@@ -9,17 +9,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import space.eliseev.keycloakadmin.commons.FileType;
+import space.eliseev.keycloakadmin.commons.TypeFile;
 import space.eliseev.keycloakadmin.entity.Client;
 import space.eliseev.keycloakadmin.entity.Realm;
-import space.eliseev.keycloakadmin.entity.Role;
 import space.eliseev.keycloakadmin.service.FormBuilderService;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value ="/formBuilder")
+@RequestMapping(value = "/formBuilder")
 public class FormBuilderController {
 
     private final FormBuilderService formBuilderService;
@@ -35,10 +34,10 @@ public class FormBuilderController {
     }
 
     @GetMapping("/downloadAllRole/{fileType}")
-    public ResponseEntity<byte[]> downloadRole(@PathVariable FileType fileType) {
+    public ResponseEntity<byte[]> downloadRole(@PathVariable TypeFile typeFile) {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(new MediaType("application", "vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
-        httpHeaders.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + "roleDtoList." + fileType);
-        return new ResponseEntity<>(formBuilderService.downloadAllRole(fileType), httpHeaders, HttpStatus.OK);
+        httpHeaders.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + "roleDtoList." + typeFile);
+        return new ResponseEntity<>(formBuilderService.downloadAllRole(typeFile), httpHeaders, HttpStatus.OK);
     }
 }

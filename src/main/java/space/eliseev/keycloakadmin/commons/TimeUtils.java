@@ -13,13 +13,13 @@ import java.util.TimeZone;
 public class TimeUtils {
 
     public static LocalDateTime toLocalDateTime(@NonNull Long time) {
-        return LocalDateTime.ofInstant(Instant.ofEpochSecond(time),
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(time),
                 TimeZone.getDefault().toZoneId());
     }
 
     public static Long toLong(@NonNull LocalDateTime localTime) {
         ZonedDateTime zdt = ZonedDateTime.of(localTime, ZoneId.systemDefault());
-        return zdt.toInstant().toEpochMilli() / 1000;
+        return zdt.toInstant().toEpochMilli();
     }
 
 }

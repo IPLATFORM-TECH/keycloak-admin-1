@@ -23,9 +23,9 @@ public class FormBuilderController {
 
     private final FormBuilderService formBuilderService;
 
-    @GetMapping("/downloadAllClient")
-    public ResponseEntity<List<Client>> downloadClient() {
-        return new ResponseEntity<>(formBuilderService.downloadAllClients(), HttpStatus.OK);
+    @GetMapping("/downloadAllClient/{typeFile}")
+    public ResponseEntity<byte[]> downloadClient(@PathVariable TypeFile typeFile) {
+        return new ResponseEntity<>(formBuilderService.downloadAllClients(typeFile), HttpStatus.OK);
     }
 
     @GetMapping("/downloadAllRealm")
@@ -39,5 +39,13 @@ public class FormBuilderController {
         httpHeaders.setContentType(new MediaType("application", "vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
         httpHeaders.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + "roleDtoList." + typeFile);
         return new ResponseEntity<>(formBuilderService.downloadAllRole(typeFile), httpHeaders, HttpStatus.OK);
+    }
+
+    @GetMapping("/downloadAllUsers/{typeFile}")
+    public ResponseEntity<byte[]> downloadUsers(@PathVariable TypeFile typeFile) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(new MediaType("application", "vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
+        httpHeaders.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + "users." + typeFile);
+        return new ResponseEntity<>(formBuilderService.downloadAllUsers(typeFile), httpHeaders, HttpStatus.OK);
     }
 }

@@ -4,9 +4,10 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import space.eliseev.keycloakadmin.commons.TypeFile;
-import space.eliseev.keycloakadmin.entity.Client;
 import space.eliseev.keycloakadmin.entity.Realm;
 import space.eliseev.keycloakadmin.service.factory.RoleFormBuilderFactory;
+import space.eliseev.keycloakadmin.service.factory.ClientFormBuilderFactory;
+import space.eliseev.keycloakadmin.service.factory.UserFormBuilderFactory;
 
 import java.util.List;
 
@@ -16,9 +17,13 @@ public class FormBuilderServiceImpl implements FormBuilderService {
 
     private final RoleFormBuilderFactory roleFormBuilderFactory;
     private final RoleService roleService;
+    private final UserFormBuilderFactory userFormBuilderFactory;
+    private final ClientFormBuilderFactory clientFormBuilderFactory;
+    private final UserService userService;
+    private final ClientService clientService;
 
-    public List<Client> downloadAllClients() {
-        return null;
+    public byte[] downloadAllClients(@NonNull TypeFile typeFile) {
+        return clientFormBuilderFactory.download(clientService.getAllClients(), typeFile);
     }
 
     public List<Realm> downloadAllRealm() {
@@ -28,6 +33,11 @@ public class FormBuilderServiceImpl implements FormBuilderService {
     @Override
     public byte[] downloadAllRole(@NonNull TypeFile typeFile) {
         return roleFormBuilderFactory.download(roleService.getAllRoles(), typeFile);
+    }
+
+    @Override
+    public byte[] downloadAllUsers(@NonNull TypeFile typeFile) {
+        return userFormBuilderFactory.download(userService.getAllUsers(), typeFile);
     }
 
 }

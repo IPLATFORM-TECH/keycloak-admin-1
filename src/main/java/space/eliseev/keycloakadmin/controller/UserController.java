@@ -12,6 +12,11 @@ package space.eliseev.keycloakadmin.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -31,21 +36,51 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value ="/user", produces = "application/json; charset=UTF-8")
-@Tag(name = "User", description = "The User API")
+@Tag(name = "User API", description = "Получение информации о пользователях")
 public class UserController {
 
     private final UserService userService;
 
-    @Operation(summary = "Gets all users")
+    @Operation(
+            summary = "Get all users",
+            description = "Получить список всех пользователей",
+            tags = {"User API"})
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    content = @Content(
+                            mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = UserDto.class))),
+                    description = "Successful operation")
+    })
     @GetMapping(value = "/getAll")
     public ResponseEntity<List<UserDto>> getUsers() {
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
-    @Operation(summary = "Gets user by id")
+    @Operation(
+            summary = "Get user by ID",
+            description = "Получить пользователя по идентификатору",
+            tags = {"User API"})
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    content = @Content(
+                            mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = UserDto.class))),
+                    description = "Successful operation"),
+            @ApiResponse(
+                    responseCode = "404",
+                    content = @Content,
+                    description = "User not found")
+    })
     @GetMapping("/get/{id}")
+    public ResponseEntity<UserDto> getById(
+            @Parameter(
+                    required = true,
+                    description = "Идентификатор пользователя")
+            @PathVariable String id) {
 
-    public ResponseEntity<UserDto> getById(@PathVariable @Parameter(description = "user id") String id) {
         final Optional<UserDto> user = userService.getById(id);
 
         return user

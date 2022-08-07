@@ -37,4 +37,21 @@ public interface UserService {
      * @return пользователя
      */
     Optional<UserDto> getById(@NonNull String id);
+
+    /**
+     * Получить пользователя по логину
+     *
+     * @param username логин пользователя
+     * @return пользователь
+     */
+    Optional<UserDto> getByUsername(@NonNull String username);
+
+    /**
+     * Получить пользователя по email
+     *
+     * @param email email пльзователя
+     * @return пользователь
+     */
+    Optional<UserDto> getByEmail(@NonNull String email);
+
 }

@@ -21,7 +21,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import space.eliseev.keycloakadmin.dto.UserDto;
 import space.eliseev.keycloakadmin.service.UserService;
 
@@ -82,6 +85,26 @@ public class UserController {
             @PathVariable String id) {
 
         final Optional<UserDto> user = userService.getById(id);
+
+        return user
+                .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @Operation(summary = "Gets user by username")
+    @GetMapping(value = "/getByUsername/username={username}")
+    public ResponseEntity<UserDto> getByUsername(@PathVariable String username) {
+        final Optional<UserDto> user = userService.getByUsername(username);
+
+        return user
+                .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @Operation(summary = "Gets user by email")
+    @GetMapping(value = "/getByEmail/email={email}")
+    public ResponseEntity<UserDto> getByEmail(@PathVariable String email) {
+        final Optional<UserDto> user = userService.getByEmail(email);
 
         return user
                 .map(value -> new ResponseEntity<>(value, HttpStatus.OK))

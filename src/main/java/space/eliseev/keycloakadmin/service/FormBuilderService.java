@@ -17,4 +17,6 @@ public interface FormBuilderService {
 
     byte[] downloadAllUsers(@NonNull TypeFile typeFile);
 
+    byte[] downloadAllEvent(@NonNull TypeFile typeFile);
+
 }

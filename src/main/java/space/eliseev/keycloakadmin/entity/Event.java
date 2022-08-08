@@ -42,4 +42,11 @@ public class Event extends BaseEntity {
     @MapsId
     private User user;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
+    private Client client;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
+    private Realm realm;
 }

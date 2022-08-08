@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import space.eliseev.keycloakadmin.commons.TypeFile;
-import space.eliseev.keycloakadmin.entity.Client;
 import space.eliseev.keycloakadmin.entity.Realm;
 import space.eliseev.keycloakadmin.entity.Role;
 import space.eliseev.keycloakadmin.service.FormBuilderService;
@@ -45,5 +44,13 @@ public class FormBuilderController {
         httpHeaders.setContentType(new MediaType("application", "vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
         httpHeaders.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + "users." + typeFile);
         return new ResponseEntity<>(formBuilderService.downloadAllUsers(typeFile), httpHeaders, HttpStatus.OK);
+    }
+
+    @GetMapping("/downloadAllEvent/{typeFile}")
+    public ResponseEntity<byte[]> downloadEvent(@PathVariable TypeFile typeFile) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType((new MediaType("application", "force-download")));
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + "EVENT." + typeFile);
+        return new ResponseEntity<>(formBuilderService.downloadAllEvent(typeFile), headers, HttpStatus.OK);
     }
 }

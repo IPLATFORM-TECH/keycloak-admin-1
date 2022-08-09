@@ -10,9 +10,12 @@
 
 package space.eliseev.keycloakadmin.repository;
 
+import lombok.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import space.eliseev.keycloakadmin.entity.User;
+
+import java.util.Optional;
 
 /**
  * Получение информации о пользователях
@@ -21,4 +24,9 @@ import space.eliseev.keycloakadmin.entity.User;
  */
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
+
+    Optional<User> findByUsername(@NonNull String username);
+
+    Optional<User> findByEmail(@NonNull String email);
+
 }

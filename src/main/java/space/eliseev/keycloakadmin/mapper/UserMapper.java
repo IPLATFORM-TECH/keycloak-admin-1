@@ -11,8 +11,10 @@ import space.eliseev.keycloakadmin.entity.User;
 public
 interface UserMapper {
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
+
     @Mapping(target = "createdTimestamp", expression = "java(TimeUtils.toLocalDateTime(user.getCreatedTimestamp()))")
     UserDto userToDto(User user);
+
     @Mapping(target = "createdTimestamp", expression = "java(TimeUtils.toLong(userDto.getCreatedTimestamp()))")
     User dtoToUser(UserDto userDto);
 }

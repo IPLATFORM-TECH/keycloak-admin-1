@@ -44,4 +44,15 @@ public class UserServiceImpl implements UserService {
     public Optional<UserDto> getById(@NonNull final String id) {
         return userRepository.findById(id).map(mapper::userToDto);
     }
+
+    @Override
+    public Optional<UserDto> getByUsername(@NonNull String username){
+        return userRepository.findByUsername(username).map(mapper::userToDto);
+    }
+
+    @Override
+    public Optional<UserDto> getByEmail(@NonNull String email){
+        return userRepository.findByEmail(email).map(mapper::userToDto);
+    }
+
 }

@@ -11,6 +11,12 @@ import java.util.Optional;
 
 @Repository
 public interface EventRepository extends JpaRepository<Event, String> {
+    @Query("select r.name from Event e join Realm r on r.id = e.realmId")
+    String findByRealmId();
+    @Query("select u.username from Event e join User u on u.id = e.userId")
+    String findByUserId();
+    @Query("select c.name from Event e join Client c on c.clientId = e.clientId")
+    String findByClientId();
     @Query(value = "SELECT e FROM Event e join e.user where e.user.username = :username")
     Optional<Event> findByUsername(@Param("username") String username);
 

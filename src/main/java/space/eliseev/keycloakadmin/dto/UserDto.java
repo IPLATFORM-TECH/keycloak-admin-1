@@ -17,4 +17,5 @@ public class UserDto {
     private String username;
     private LocalDateTime createdTimestamp;
     private Integer notBefore;
+    private String realmName;
 }

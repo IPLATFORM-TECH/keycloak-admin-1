@@ -93,12 +93,12 @@ public class UserController {
 
     @Operation(summary = "Gets user by username")
     @GetMapping(value = "/getByUsername/username={username}")
-    public ResponseEntity<UserDto> getByUsername(@PathVariable String username) {
-        final Optional<UserDto> user = userService.getByUsername(username);
-
-        return user
-                .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public ResponseEntity<List<UserDto>> getByUsername(@PathVariable String username) {
+        final List<UserDto> user = userService.getByUsername(username);
+        if (user != null) {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @Operation(summary = "Gets user by email")

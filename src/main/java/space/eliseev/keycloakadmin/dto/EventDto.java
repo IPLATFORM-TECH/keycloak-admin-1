@@ -24,5 +24,5 @@ public class EventDto {
 
     private String type;
 
-    private String userId;
+    private String userName;
 }

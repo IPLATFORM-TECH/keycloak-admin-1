@@ -12,6 +12,8 @@ package space.eliseev.keycloakadmin.repository;
 
 import lombok.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import space.eliseev.keycloakadmin.entity.User;
 
@@ -28,6 +30,7 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     List<User> findByUsername(@NonNull String username);
 
-    Optional<User> findByEmail(@NonNull String email);
-
+    List<User> findByEmail(@NonNull String email);
+    @Query("SELECT u FROM User u join u.realm where u.realm.name = :realmName and u.email = :email")
+    Optional<User> findByEmailAndRealmName(@Param("email") String email, @Param("realmName") String realmName);
 }

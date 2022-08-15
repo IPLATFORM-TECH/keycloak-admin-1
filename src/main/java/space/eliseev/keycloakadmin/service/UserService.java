@@ -47,11 +47,19 @@ public interface UserService {
     List<UserDto> getByUsername(@NonNull String username);
 
     /**
-     * Получить пользователя по email
+     * Получить лист пользователей по email
      *
      * @param email email пльзователя
+     * @return лист пользователей
+     */
+    List<UserDto> getByEmail(@NonNull String email);
+
+    /**
+     * Получить пользователя по email и realName
+     * @param email email пользователя
+     * @param realmName имя realm
      * @return пользователь
      */
-    Optional<UserDto> getByEmail(@NonNull String email);
+    Optional<UserDto> getByEmailAndRealmName(@NonNull String email, @NonNull String realmName);
 
 }

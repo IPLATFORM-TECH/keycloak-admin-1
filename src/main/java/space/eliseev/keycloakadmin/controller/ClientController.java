@@ -87,12 +87,8 @@ public class ClientController {
                     description = "Client not found")
     })
     @GetMapping("/getByName/{name}")
-    public ResponseEntity<ClientDto> getByName(@PathVariable @Parameter(description = "client name") String name) {
+    public ResponseEntity<List<ClientDto>> getByName(@PathVariable @Parameter(description = "client name") String name) {
 
-        final Optional<ClientDto> client = clientService.getByName(name);
-
-        return client
-                .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return new ResponseEntity<>(clientService.getByName(name), HttpStatus.OK);
     }
 }

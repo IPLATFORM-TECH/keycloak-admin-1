@@ -38,7 +38,7 @@ import java.util.Optional;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value ="/user", produces = "application/json; charset=UTF-8")
+@RequestMapping(value = "/user", produces = "application/json; charset=UTF-8")
 @Tag(name = "User API", description = "Получение информации о пользователях")
 public class UserController {
 
@@ -71,7 +71,7 @@ public class UserController {
                     content = @Content(
                             mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = UserDto.class))),
-                    description = "Successful operation"),
+                                       description = "Successful operation"),
             @ApiResponse(
                     responseCode = "404",
                     content = @Content,
@@ -91,23 +91,77 @@ public class UserController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @Operation(summary = "Gets user by username")
+    @Operation(
+            summary = "Get user by username",
+            description = "Получить пользователя имени",
+            tags = {"User API"})
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    content = @Content(
+                            mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = UserDto.class))),
+                    description = "Successful operation"),
+            @ApiResponse(
+                    responseCode = "404",
+                    content = @Content,
+                    description = "User not found")
+    })
     @GetMapping(value = "/getByUsername/username={username}")
-    public ResponseEntity<UserDto> getByUsername(@PathVariable String username) {
-        final Optional<UserDto> user = userService.getByUsername(username);
-
-        return user
-                .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public ResponseEntity<List<UserDto>> getByUsername(@PathVariable String username) {
+        final List<UserDto> user = userService.getByUsername(username);
+        if (user != null) {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @Operation(summary = "Gets user by email")
+    @Operation(
+            summary = "Get all users",
+            description = "Получить список пользователей по Email",
+            tags = {"User API"})
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    content = @Content(
+                            mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = UserDto.class))),
+                    description = "Successful operation")
+    })
     @GetMapping(value = "/getByEmail/email={email}")
-    public ResponseEntity<UserDto> getByEmail(@PathVariable String email) {
-        final Optional<UserDto> user = userService.getByEmail(email);
+    public ResponseEntity<List<UserDto>> getByEmail(@PathVariable String email) {
+        final List<UserDto> user = userService.getByEmail(email);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @Operation(
+            summary = "Get user by email and realmName",
+            description = "Получить пользователя по Email и realmName",
+            tags = {"User API"})
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    content = @Content(
+                            mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = UserDto.class))),
+                    description = "Successful operation"),
+            @ApiResponse(
+                    responseCode = "404",
+                    content = @Content,
+                    description = "User not found")
+    })
+    @GetMapping("/getByEmailAndRealmName/email={email}&realmName={realmName}")
+    public ResponseEntity<UserDto> getByEmailAndRealmName(
+            @Parameter(
+                    required = true,
+                    description = "email и realmName пользователя")
+            @PathVariable String email, @PathVariable String realmName) {
+
+        final Optional<UserDto> user = userService.getByEmailAndRealmName(email, realmName);
 
         return user
                 .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }
+

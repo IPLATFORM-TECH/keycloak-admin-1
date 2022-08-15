@@ -31,7 +31,10 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Optional<ClientDto> getByName(@NonNull String name) {
-        return Optional.ofNullable(mapper.toDtoMapper(clientRepository.findByName(name).get()));
+    public List<ClientDto> getByName(@NonNull String name) {
+        return clientRepository.findByName(name)
+                .stream()
+                .map(mapper::toDtoMapper)
+                .collect(Collectors.toList());
     }
 }

@@ -13,6 +13,7 @@ interface UserMapper {
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
     @Mapping(target = "createdTimestamp", expression = "java(TimeUtils.toLocalDateTime(user.getCreatedTimestamp()))")
+    @Mapping(target = "realmName", source = "realm.name")
     UserDto userToDto(User user);
 
     @Mapping(target = "createdTimestamp", expression = "java(TimeUtils.toLong(userDto.getCreatedTimestamp()))")

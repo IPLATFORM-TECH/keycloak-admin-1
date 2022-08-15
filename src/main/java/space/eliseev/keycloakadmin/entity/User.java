@@ -57,7 +57,7 @@ public class User extends BaseEntity {
     @Column(name = "not_before")
     private Integer notBefore;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "realm_id", referencedColumnName = "id")
     private Realm realm;
 }

@@ -46,8 +46,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<UserDto> getByUsername(@NonNull String username){
-        return userRepository.findByUsername(username).map(mapper::userToDto);
+    public List<UserDto> getByUsername(@NonNull String username){
+        return userRepository.findByUsername(username).stream().map(mapper::userToDto).toList();
     }
 
     @Override

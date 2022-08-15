@@ -44,7 +44,7 @@ public interface UserService {
      * @param username логин пользователя
      * @return пользователь
      */
-    Optional<UserDto> getByUsername(@NonNull String username);
+    List<UserDto> getByUsername(@NonNull String username);
 
     /**
      * Получить пользователя по email
